@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE prestamoinstrumentos 
             SET nombre='$nombre', apellido='$apellido', DNI='$dni', instrumento_id='$instrumento_id', fecha_prestamo='$fecha_prestamo', fecha_devolucion='$fecha_devolucion', tipo_transaccion='$tipo_transaccion', estado_entrega='$estado_entrega' 
             WHERE id = '$id'";
-    
+
     if ($conn->query($sql) === TRUE) {
         echo "Préstamo actualizado con éxito";
         header('Location: prestamo.php');
@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body {
             background-color: #f7f7f7;
         }
+
         .container {
             margin-top: 50px;
             max-width: 600px;
@@ -49,19 +51,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 20px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
         }
+
         .form-group label {
             font-weight: bold;
         }
+
         .btn-primary {
             background-color: green;
             border-color: green;
         }
+
         .btn-primary:hover {
             background-color: darkgreen;
             border-color: darkgreen;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 class="text-center mb-4">Editar Préstamo</h1>
@@ -108,23 +114,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="form-group">
-            <label for="tipo_transaccion">tipo de transaccion</label>
-            <select class="form-control" id="tipo_transaccion" name="tipo_transaccion" required>
-            <option selected>--Selecione--</option>
-                <option value="Prestado">Prestado</option>
-                <option value="Devuelto">Devuelto</option>
-                <?php echo $prestamo['tipo_transaccion']; ?>"
-            </select>
+                <label for="tipo_transaccion">tipo de transaccion</label>
+                <select class="form-control" id="tipo_transaccion" name="tipo_transaccion" required>
+                    <option selected>--Selecione--</option>
+                    <option value="Prestado">Prestado</option>
+                    <option value="Devuelto">Devuelto</option>
+                    <?php echo $prestamo['tipo_transaccion']; ?>"
+                </select>
             </div>
 
             <div class="form-group">
                 <label for="estado_entrega">Estado de Entrega:</label>
                 <select class="form-control" id="estado_entrega" name="estado_entrega" required>
-                <option selected>--Selecione--</option>
-                <option value="Bueno">Bueno</option>
-                <option value="Dañado">Dañado</option>
-                <?php echo $prestamo['estado_entrega']; ?>"
-            </select>
+                    <option selected>--Selecione--</option>
+                    <option value="Bueno">Bueno</option>
+                    <option value="Dañado">Dañado</option>
+                    <?php echo $prestamo['estado_entrega']; ?>"
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">Actualizar Préstamo</button>
@@ -132,4 +138,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 </body>
+
 </html>

@@ -14,7 +14,7 @@ include '../conexion/conexion.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema</title>
-    
+
 
     <link
         rel="stylesheet"
@@ -34,11 +34,12 @@ include '../conexion/conexion.php'; ?>
             background-position: center center;
             background-size: cover;
             background-color: rgb(50, 50, 50);
-            width: 232px; ;
+            width: 232px;
+            ;
 
             position: fixed;
             height: 100%;
-        
+
         }
 
 
@@ -97,19 +98,23 @@ include '../conexion/conexion.php'; ?>
             width: 100%;
 
         }
-        .container-fluit{
-         margin-left: 220px; /* Añade margen izquierdo para que el contenido no quede debajo de la barra lateral */
-      height: auto;
-      
+
+        .container-fluit {
+            margin-left: 220px;
+            /* Añade margen izquierdo para que el contenido no quede debajo de la barra lateral */
+            height: auto;
+
         }
+
         .menu,
         .texto {
             color: greenyellow;
             padding-top: 20px;
             font-size: 40px;
         }
-        .contenido2{
-        margin-top: 100px;
+
+        .contenido2 {
+            margin-top: 100px;
             padding: 20px;
             height: auto;
         }
@@ -151,8 +156,8 @@ include '../conexion/conexion.php'; ?>
             <div class="contenido2">
 
                 <div class="Atras"><a href="../index.php"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-</svg></a></div>
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                        </svg></a></div>
                 <h1 class="title">Instrumentos</h1>
                 <a href="./agregar.php" class="btn btn-success mb-3">Agregar Instrumento</a>
 

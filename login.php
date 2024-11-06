@@ -108,7 +108,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <button class="btn btn-primary w-100" type="submit">INGRESAR</button>
-                    <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
+                    <?php if (isset($error)) {
+                        echo "<p class='error'>$error</p>";
+                    } ?>
                 </form>
             </div>
         </div>

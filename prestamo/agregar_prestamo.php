@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body {
             background-color: #f7f7f7;
         }
+
         .container {
             margin-top: 50px;
             max-width: 600px;
@@ -47,19 +49,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 20px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
         }
+
         .form-group label {
             font-weight: bold;
         }
+
         .btn-primary {
             background-color: green;
             border-color: green;
         }
+
         .btn-primary:hover {
             background-color: darkgreen;
             border-color: darkgreen;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 class="text-center mb-4">Registrar Préstamo de Instrumento</h1>
@@ -99,13 +105,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label for="fecha_devolucion">Fecha de Devolución:</label>
-                <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" >
+                <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion">
             </div>
 
             <div class="form-group">
                 <label for="tipo_transaccion">Tipo de Transacción:</label>
-                <select class="form-control" id="tipo_transaccion" name="tipo_transaccion" >
-                <option selected>--Selecione--</option>
+                <select class="form-control" id="tipo_transaccion" name="tipo_transaccion">
+                    <option selected>--Selecione--</option>
                     <option value="Prestado">Prestado</option>
                     <option value="Devuelto">Devuelto</option>
                 </select>
@@ -114,10 +120,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <label for="estado_entrega">Estado de Entrega:</label>
                 <select class="form-control" id="estado_entrega" name="estado_entrega" required>
-                <option selected>--Selecione--</option>
-                <option value="Bueno">Bueno</option>
-                <option value="Dañado">Dañado</option>
-            </select>
+                    <option selected>--Selecione--</option>
+                    <option value="Bueno">Bueno</option>
+                    <option value="Dañado">Dañado</option>
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">Agregar Préstamo</button>
@@ -125,4 +131,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 </body>
+
 </html>

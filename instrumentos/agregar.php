@@ -15,11 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $color = $_POST['color'];
     $fecha_donacion = $_POST['fecha_donacion'];
     $estado = $_POST['estado'];
-    $precio= $_POST['precio'];
-   
+    $precio = $_POST['precio'];
+
 
     $sql = "INSERT INTO instrumentos (codigo,nombre,marca,modelo,Color,fecha_donacion,estado,precio) VALUES ('$codigo','$nombre','$marca','$modelo','$color','$fecha_donacion','$estado','$precio')";
-    
+
     if ($conn->query($sql) === TRUE) {
         echo "Nuevo instrumento agregado con éxito";
         header("Location: instrumento.php");
@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-      
         /* Estilos generales del formulario */
         body {
             font-family: Arial, sans-serif;
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-          
+
         }
 
         h1 {
@@ -109,56 +109,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .button-container {
             text-align: right;
         }
-        .container h1{
+
+        .container h1 {
             justify-content: center;
         }
     </style>
 </head>
+
 <body>
-    
-        <div class="container ">
-            <h1 class=" row my-4 ">Registrar Instrumentos</h1>
-            <form method="post" action="../instrumentos/agregar.php" class="bg-light p-4 border rounded">
-                <div class="form-group">
-                    <label for="codigo">Código:</label>
-                    <input type="text" id="codigo" name="codigo" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="marca">Marca:</label>
-                    <input type="text" id="marca" name="marca" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="modelo">Modelo:</label>
-                    <input type="text" id="modelo" name="modelo" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="color">Color:</label>
-                    <input type="text" id="color" name="color" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="fecha_donacion">Fecha de Donación:</label>
-                    <input type="date" id="fecha_donacion" name="fecha_donacion" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="estado">Estado:</label>
-                    <select class="form-control" id="estado" name="estado" required>
+
+    <div class="container ">
+        <h1 class=" row my-4 ">Registrar Instrumentos</h1>
+        <form method="post" action="../instrumentos/agregar.php" class="bg-light p-4 border rounded">
+            <div class="form-group">
+                <label for="codigo">Código:</label>
+                <input type="text" id="codigo" name="codigo" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" name="marca" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="modelo">Modelo:</label>
+                <input type="text" id="modelo" name="modelo" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="color">Color:</label>
+                <input type="text" id="color" name="color" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha_donacion">Fecha de Donación:</label>
+                <input type="date" id="fecha_donacion" name="fecha_donacion" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select class="form-control" id="estado" name="estado" required>
                     <option value="Bueno">Bueno</option>
                     <option value="Dañado">Dañado</option>
                 </select>
-                </div>
-                <div class="form-group">
-                    <label for="precio">Precio:</label>
-                    <input type="number" id="precio" name="precio" class="form-control" required>
-                </div>
-            
-                <button type="submit" class="btn btn-success">Agregar Instrumentos</button>
-                <a href="instrumento.php" class="btn btn-danger">Cancelar</a>
-            </form>
-        </div>
+            </div>
+            <div class="form-group">
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" name="precio" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">Agregar Instrumentos</button>
+            <a href="instrumento.php" class="btn btn-danger">Cancelar</a>
+        </form>
+    </div>
     </div>
 </body>
+
 </html>
