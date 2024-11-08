@@ -144,7 +144,10 @@ include '../conexion/conexion.php'; ?>
 
                 <h1 class="title">Préstamos de Instrumentos</h1>
                 <a href="./agregar_prestamo.php" class="btn btn-success m-3">Agregar Préstamo</a>
-                <a href="../reporte.php" class="btn btn-success m-3">reporte</a>
+                
+                <div class="text-right">
+                    <a href="../fpdf/PruebaH.php" target="_blank" class=" btn btn-primary m-2"><i class="fas fa-file-pdf"></i> generae reporte</a>
+                </div>
                 <table class="table ">
                     <thead>
                         <tr>
