@@ -160,7 +160,9 @@ include '../conexion/conexion.php'; ?>
                         </svg></a></div>
                 <h1 class="title">Instrumentos</h1>
                 <a href="./agregar.php" class="btn btn-success mb-3">Agregar Instrumento</a>
-
+                <div class="text-right">
+                    <a href="../fpdf/reportInstrumentos.php" target="_blank" class=" btn btn-primary m-2"><i class="fas fa-file-pdf"></i> generar reporte</a>
+                </div>
                 <table class="table">
                     <thead>
                         <tr>

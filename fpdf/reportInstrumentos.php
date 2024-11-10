@@ -10,7 +10,7 @@ class PDF extends FPDF
    {
       include '../conexion/conexion.php'; //llamamos a la conexion BD
  
-      $consulta_info = $conn->query("SELECT * FROM prestamoinstrumentos"); //traemos datos de la empresa desde BD
+      $consulta_info = $conn->query("SELECT * FROM instrumentos"); //traemos datos de la empresa desde BD
       $dato_info = $consulta_info->fetch_object();
       $this->Image('../img/insignia1.png', 250, 5, 40); //logo de la empresa,moverDerecha,moverAbajo,tamañoIMG
       $this->SetFont('Arial', 'B', 19); //tipo fuente, negrita(B-I-U-BIU), tamañoTexto
@@ -46,7 +46,7 @@ class PDF extends FPDF
       $this->SetTextColor(0, 95, 189);
       $this->Cell(100); // mover a la derecha
       $this->SetFont('Arial', 'B', 15);
-      $this->Cell(100, 10, utf8_decode("REPORTE DE PRESTAMOS "), 0, 1, 'C', 0);
+      $this->Cell(100, 10, utf8_decode("REPORTE DE INSTRUMENTOS "), 0, 1, 'C', 0);
       $this->Ln(7);
 
       /* CAMPOS DE LA TABLA */
@@ -56,14 +56,15 @@ class PDF extends FPDF
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
       $this->Cell(15, 10, utf8_decode('ID'), 1, 0, 'C', 1);
+      $this->Cell(30, 10, utf8_decode('CODIGO'), 1, 0, 'C', 1);
       $this->Cell(30, 10, utf8_decode('NOMBRE'), 1, 0, 'C', 1);
-      $this->Cell(30, 10, utf8_decode('APELLIDO'), 1, 0, 'C', 1);
-      $this->Cell(30, 10, utf8_decode('DNI'), 1, 0, 'C', 1);
-      $this->Cell(30, 10, utf8_decode('F-PRESTAMO'), 1, 0, 'C', 1);
-      $this->Cell(30, 10, utf8_decode('F-ENTREGA'), 1, 0, 'C', 1);
-      $this->Cell(30, 10, utf8_decode('INSRUMENTOS'), 0, 0, 'C', 1);
-      $this->Cell(30, 10, utf8_decode('TIPO'), 1, 0, 'C', 1);
-      $this->Cell(30, 10, utf8_decode('ESTADO'), 1, 1, 'C', 1);
+      $this->Cell(30, 10, utf8_decode('MARCA'), 1, 0, 'C', 1);
+      $this->Cell(30, 10, utf8_decode('MODELO'), 1, 0, 'C', 1);
+      $this->Cell(30, 10, utf8_decode('COLOR'), 1, 0, 'C', 1);
+      $this->Cell(30, 10, utf8_decode('F-DONACION'), 0, 0, 'C', 1);
+      $this->Cell(30, 10, utf8_decode('ESTADO'), 1, 0, 'C', 1);
+      $this->Cell(30, 10, utf8_decode('PRECIO'), 1, 1, 'C', 1);
+     
    }
 
    // Pie de página
@@ -91,23 +92,22 @@ $i = 0;
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
-$consulta_reporte = $conn->query("SELECT prestamoinstrumentos.nombre, prestamoinstrumentos.apellido, prestamoinstrumentos.DNI, prestamoinstrumentos.fecha_prestamo, prestamoinstrumentos.fecha_devolucion, instrumentos.nombre AS 'nomInstrumento',prestamoinstrumentos.tipo_transaccion, prestamoinstrumentos.estado_entrega  FROM `prestamoinstrumentos` 
-INNER JOIN instrumentos ON instrumentos.id=prestamoinstrumentos.instrumento_id");
+$consulta_reporte = $conn->query("SELECT instrumentos.codigo, instrumentos.nombre,instrumentos.marca, instrumentos.modelo, instrumentos.color, instrumentos.fecha_donacion ,instrumentos.estado, instrumentos.precio  FROM `instrumentos` ");
 
 while ($datos_reporte = $consulta_reporte->fetch_object()) {
    $i = $i + 1;
    /* TABLA */
    $pdf->Cell(15, 10, utf8_decode($i), 1, 0, 'C', 0);
+   $pdf->Cell(30, 10, utf8_decode($datos_reporte->codigo), 1, 0, 'C', 0);
    $pdf->Cell(30, 10, utf8_decode($datos_reporte->nombre), 1, 0, 'C', 0);
-   $pdf->Cell(30, 10, utf8_decode($datos_reporte->apellido), 1, 0, 'C', 0);
-   $pdf->Cell(30, 10, utf8_decode($datos_reporte->DNI), 1, 0, 'C', 0);
-   $pdf->Cell(30, 10, utf8_decode($datos_reporte->	fecha_prestamo), 1, 0, 'C', 0);
-   $pdf->Cell(30, 10, utf8_decode($datos_reporte->	fecha_devolucion), 1, 0, 'C', 0);
-   $pdf->Cell(30, 10, utf8_decode($datos_reporte->nomInstrumento), 1, 0, 'C', 0);
-   $pdf->Cell(30, 10, utf8_decode($datos_reporte->tipo_transaccion), 1, 0, 'C', 0);
-   $pdf->Cell(30, 10, utf8_decode($datos_reporte->estado_entrega), 1, 0, 'C', 0);
+   $pdf->Cell(30, 10, utf8_decode($datos_reporte->marca), 1, 0, 'C', 0);
+   $pdf->Cell(30, 10, utf8_decode($datos_reporte->	modelo), 1, 0, 'C', 0);
+   $pdf->Cell(30, 10, utf8_decode($datos_reporte->	color), 1, 0, 'C', 0);
+   $pdf->Cell(30, 10, utf8_decode($datos_reporte->fecha_donacion), 1, 0, 'C', 0);
+   $pdf->Cell(30, 10, utf8_decode($datos_reporte->estado), 1, 0, 'C', 0);
+   $pdf->Cell(30, 10, utf8_decode($datos_reporte->precio), 1, 0, 'C', 0);
   
 }
 
 
-$pdf->Output('Reporte prestamos.pdf', 'I');//nombreDescarga, Visor(I->visualizar - D->descargar)
+$pdf->Output('Reporte instrumentos.pdf', 'I');//nombreDescarga, Visor(I->visualizar - D->descargar)
