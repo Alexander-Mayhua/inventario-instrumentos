@@ -69,252 +69,196 @@ $conexion->close();
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema</title>
-    <link rel="stylesheet" href="./css/stylee.css">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f7f7f7;
+            overflow-x: hidden;
         }
 
         .sidebar {
-            height: auto;
             background: #343a40;
             color: rgb(63, 252, 56);
             background-image: url(img/fondo.jpg);
             background-blend-mode: soft-light;
             background-repeat: no-repeat;
-            background-position: center center;
+            background-position: center;
             background-size: cover;
             background-color: rgb(50, 50, 50);
-
-            position: fixed;
-            height: 100%;
+            min-height: 100vh;
+            transition: 0.3s;
         }
 
         .sidebar a {
             color: #ffffff;
             font-weight: 700;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            transition: 0.3s;
         }
 
         .sidebar a:hover {
             background: #ffffff;
             color: rgb(1, 2, 2);
+            border-radius: 5px;
         }
 
-        .nav-item {
-            margin-top: 30px;
-        }
-
-        .img {
+        .img-profile {
             border-radius: 50%;
-            background-color: black;
+            width: 150px;
+            height: auto;
+            margin: 20px auto;
         }
 
+        .header {
+            background-image: url(./img/fondo.jpg);
+            background-blend-mode: soft-light;
+            background-position: center;
+            background-size: cover;
+            background-color: rgb(50, 50, 50);
+            padding: 20px;
+            color: greenyellow;
+        }
 
-
-        /*estilo de dashboard ------------------------*/
         .dashboard-card {
-            border: none;
-            /* Eliminamos el borde para un diseño más limpio */
-            width: 200px;
-            /* Ampliamos el ancho para más contenido */
-            height: 200px;
-            /* Aumentamos la altura para una mejor proporción */
-            margin: 50px;
-            /* Menor margen para mejor distribución */
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            /* Sombra más suave y sutil */
-            border-radius: 15px;
-            /* Redondeo suave en los bordes */
             background-color: #f9f5eb;
-            /* Color suave y limpio, similar a un blanco hueso */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            /* Efectos animados al interactuar */
-            overflow: hidden;
-
-
-
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
         }
 
         .dashboard-card:hover {
             transform: translateY(-10px);
-            /* Desplazamiento hacia arriba en hover */
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-            /* Sombra más intensa al hacer hover */
-
-        }
-
-        .dashboard-card:hover::before {
-            opacity: 1;
-            /* Aparece una superposición de brillo en hover */
-            background-color: red;
-        }
-
-        .dashboard-card:hover {
-            background-color: blue;
+            background-color: #e3f2fd;
         }
 
         .card-info {
-
-            flex-direction: column;
-            text-align: center;
-            padding: 15px;
-            justify-content: center;
-            /* Alineación centrada verticalmente */
-            align-content: center;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
-            /* Fondo semitransparente */
-        }
-
-        .card-info h3 {
-            margin: 0;
-            font-size: 22px;
-            color: #333;
-            /* Color oscuro para mejor contraste */
-            letter-spacing: 1px;
-            /* Espaciado para un toque más moderno */
-        }
-
-        .card-info p {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #555;
-            /* Texto más suave en gris */
-            line-height: 1.6;
-            /* Mejor espaciado en el texto */
-        }
-
-        .card-info .icon {
-            font-size: 40px;
-            color: #ff7f50;
-            /* Un color llamativo para los íconos */
-            margin-bottom: 10px;
-            /* Espaciado entre el ícono y el texto */
-        }
-
-        .dash {
-            display: flex;
-            justify-content: space-around;
-        }
-
-
-        .menu {
-            width: auto;
-            height: 100px;
-            background-color: green;
-            display: flex;
-            justify-content: center;
-            background-image: url(./img/fondo.jpg);
-            background-blend-mode: soft-light;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: cover;
-            background-color: rgb(50, 50, 50);
-            align-content: end;
-
-            position: fixed;
-            width: 100%;
-
-
-        }
-
-        .menu,
-        .texto {
-            color: greenyellow;
-            padding-top: 20px;
-            font-size: 40px;
-        }
-
-        .container-fluit {
-            margin-left: 220px;
-            /* Añade margen izquierdo para que el contenido no quede debajo de la barra lateral */
-
-        }
-
-        .contenido2 {
-            margin-top: 100px;
             padding: 20px;
-            height: auto;
-
+            text-align: center;
         }
-        .paleta{
-            
-           margin-left: 170px;
+
+        .card-info img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
+        .panel-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .panel {
+            flex: 1;
+            min-width: 200px;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel h3 {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+            }
+
+            .content-wrapper {
+                margin-left: 0;
+            }
+
+            .dashboard-cards {
+                flex-direction: column;
+            }
+
+            .panel {
+                min-width: 100%;
+            }
         }
     </style>
 </head>
-
 <body>
-    <div class="d-flex">
-        <div class="sidebar p-3">
-            <div class="admin text-center">
-                <img src="./img/insignia1.png" class="img mb-4" alt="" width="200">
+    <div class="row g-0">
+        <!-- Sidebar -->
+        <div class="col-lg-2 col-md-3 sidebar">
+            <div class="text-center py-4">
+                <img src="./img/insignia1.png" class="img-profile" alt="Logo">
                 <h5>I.E ESMERALDA</h5>
             </div>
             <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="./instrumentos/instrumento.php">Instrumentos</a></li>
+                <li class="nav-item"><a class="nav-link" href="./prestamo/prestamo.php">Prestamos</a></li>
+                <li class="nav-item"><a class="nav-link" href="./historial/historial.php">Historial</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./instrumentos/instrumento.php">Instrumentos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./prestamo/prestamo.php">Prestamos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./historial/historial.php">Historial</a>
-                </li>
-                <li class="nav-item">
-                    <strong>
-                        <p>Usuario: <?php echo $_SESSION['username']; ?></p>
-                    </strong>
+                    <strong><p class="px-3 text-white">Usuario: <?php echo $_SESSION['username']; ?></p></strong>
                     <a href="logout.php" class="nav-link">Cerrar Sesión</a>
                 </li>
             </ul>
         </div>
-        <div class="container-fluit col-lg p-0">
-            <div class="menu ">
-                <p class="texto">SISTEMA DE INVENTARIO</p>
+
+        <!-- Content -->
+        <div class="col-lg-10 col-md-9">
+            <!-- Header -->
+            <div class="header text-center mb-4">
+                <h1>SISTEMA DE INVENTARIO</h1>
             </div>
-            <div class="contenido2">
-                <div class="dash">
 
-                    <div class="dashboard-card">
-                        <div class="card-info">
-                            <img src="./img/icono-instrumento.png" alt="" width="50">
-                            <h3 id="instrumentos-count"><?php echo $total_instrumentos; ?></h3>
-                            <p><strong>Instrumentos</strong></p>
+            <!-- Dashboard Cards -->
+            <div class="container">
+                <div class="row justify-content-center g-4">
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="dashboard-card">
+                            <div class="card-info">
+                                <img src="./img/icono-instrumento.png" alt="Instrumentos">
+                                <h3><?php echo $total_instrumentos; ?></h3>
+                                <p><strong>Instrumentos</strong></p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="dashboard-card">
-                        <div class="card-info">
-                            <img src="./img/icono-prestamo.png" alt="" width="50">
-                            <h3 id="instrumentos-count"><?php echo $total_prestamos; ?></h3>
-                            <p><strong>Prestamos</strong></p>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="dashboard-card">
+                            <div class="card-info">
+                                <img src="./img/icono-prestamo.png" alt="Prestamos">
+                                <h3><?php echo $total_prestamos; ?></h3>
+                                <p><strong>Prestamos</strong></p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="dashboard-card">
-                        <div class="card-info">
-                            <img src="./img/icono-historial.png" alt="" width="50">
-                            <h3 id="instrumentos-count"><?php echo $total_historial; ?></h3>
-                            <p><strong>historial</strong></p>
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="dashboard-card">
+                            <div class="card-info">
+                                <img src="./img/icono-historial.png" alt="Historial">
+                                <h3><?php echo $total_historial; ?></h3>
+                                <p><strong>Historial</strong></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="paleta">
-                    <div class="panel active" style="background-image: url('https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
+
+                <!-- Panels -->
+                <div class="panel-container mt-4">
+                    <div class="panel" style="background-image: url('https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
                         <h3>Explore The World</h3>
                     </div>
                     <div class="panel" style="background-image: url('https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
@@ -329,11 +273,12 @@ $conexion->close();
                     <div class="panel" style="background-image: url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
                         <h3>Mountains - Clouds</h3>
                     </div>
-
                 </div>
             </div>
-
-            <script src="./js/script.js"></script>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/script.js"></script>
 </body>
+</html>

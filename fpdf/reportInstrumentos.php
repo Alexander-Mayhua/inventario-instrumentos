@@ -105,7 +105,7 @@ while ($datos_reporte = $consulta_reporte->fetch_object()) {
    $pdf->Cell(30, 10, utf8_decode($datos_reporte->	color), 1, 0, 'C', 0);
    $pdf->Cell(30, 10, utf8_decode($datos_reporte->fecha_donacion), 1, 0, 'C', 0);
    $pdf->Cell(30, 10, utf8_decode($datos_reporte->estado), 1, 0, 'C', 0);
-   $pdf->Cell(30, 10, utf8_decode($datos_reporte->precio), 1, 0, 'C', 0);
+   $pdf->Cell(30, 10, utf8_decode($datos_reporte->precio), 1, 1, 'C', 0);
   
 }
 
