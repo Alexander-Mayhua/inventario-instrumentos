@@ -100,11 +100,7 @@ $conexion->close();
             z-index: 1000;
         }
         
-        .main-content {
-            margin-left: 250px;
-            width: calc(100% - 250px);
-            transition: all 0.3s;
-        }
+      
         .sidebar a {
             color: #ffffff;
             font-weight: 700;
