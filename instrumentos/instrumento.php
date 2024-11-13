@@ -1,10 +1,15 @@
 <?php
-include '../conexion/conexion.php';
-
 session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
+}
+include '../conexion/conexion.php';
+
+$busqueda = ""; // Inicializa la variable de búsqueda
+
+if (isset($_GET['busqueda'])) {
+    $busqueda = $_GET['busqueda'];
 }
 ?>
 
@@ -205,8 +210,19 @@ if (!isset($_SESSION['username'])) {
             </div>
 
             <h1 class="text-center mb-4">Instrumentos</h1>
+             <!-- Formulario de búsqueda -->
+             <form method="GET" action="" class="mb-3">
+                <div class="input-group">
+                    <input type="text" name="busqueda" class="form-control" placeholder="Buscar por nombre o código" value="<?php echo htmlspecialchars($busqueda); ?>">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+        
+            </form>
             <div class="mb-3">
                 <a href="./agregar.php" class="btn btn-success">Agregar Instrumento</a>
+            </div>
+            <div class="text-right">
+                <a href="../fpdf/reportInstrumentos.php" target="_blank" class="btn btn-primary m-2"><i class="fas fa-file-pdf"></i> Generar reporte</a>
             </div>
 
             <div class="table-responsive">
@@ -222,14 +238,22 @@ if (!isset($_SESSION['username'])) {
                             <th scope="col" class="bg-success text-white">FECHA DONACIÓN</th>
                             <th scope="col" class="bg-success text-white">ESTADO</th>
                             <th scope="col" class="bg-success text-white">PRECIO</th>
+                            <th scope="col" class="bg-success text-white">DISPONIBILIDAD</th>
                             <th scope="col" class="bg-success text-white">ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        $result = $conn->query("SELECT * FROM instrumentos");
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>
+                    <?php
+                    // Consulta SQL con filtro de búsqueda
+                    $sql = "SELECT * FROM instrumentos";
+                    if (!empty($busqueda)) {
+                        $sql .= " WHERE nombre LIKE '%" . $conn->real_escape_string($busqueda) . "%' 
+                                      OR codigo LIKE '%" . $conn->real_escape_string($busqueda) . "%'";
+                    }
+
+                    $result = $conn->query($sql);
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>
                                 <td>{$row['id']}</td>
                                 <td>{$row['codigo']}</td>
                                 <td>{$row['nombre']}</td>
@@ -239,15 +263,14 @@ if (!isset($_SESSION['username'])) {
                                 <td>{$row['fecha_donacion']}</td>
                                 <td>{$row['estado']}</td>
                                 <td>{$row['precio']}</td>
+                                 <td>{$row['disponibilidad']}</td>
                                 <td>
-                                    <div class='action-buttons'>
-                                        <a href='editar_instrumento.php?id={$row['id']}' class='btn btn-warning btn-sm'>Editar</a>
-                                        <a href='eliminar.php?id={$row['id']}' class='btn btn-danger btn-sm' onclick=\"return confirm('¿Estás seguro de que deseas eliminar este instrumento?');\">Eliminar</a>
-                                    </div>
+                                    <a href='editar_instrumento.php?id={$row['id']}' class='btn btn-warning'>Editar</a>
+                                    <a href='eliminar.php?id={$row['id']}' class='btn btn-danger' onclick=\"return confirm('¿Estás seguro de que deseas eliminar este instrumento?');\">Eliminar</a>
                                 </td>
                             </tr>";
-                        }
-                        ?>
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>

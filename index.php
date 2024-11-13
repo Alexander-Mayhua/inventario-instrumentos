@@ -66,7 +66,6 @@ $conexion->close();
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>

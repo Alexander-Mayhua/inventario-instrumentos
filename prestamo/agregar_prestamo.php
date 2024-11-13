@@ -17,16 +17,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipo_transaccion = $_POST['tipo_transaccion'];
     $estado_entrega = $_POST['estado_entrega'];
 
+    // Insertar el préstamo en la tabla
     $sql = "INSERT INTO prestamoinstrumentos (nombre, apellido, DNI, instrumento_id, fecha_prestamo, fecha_devolucion, tipo_transaccion, estado_entrega) 
             VALUES ('$nombre', '$apellido', '$dni', '$instrumento_id', '$fecha_prestamo', '$fecha_devolucion', '$tipo_transaccion', '$estado_entrega')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Nuevo préstamo agregado con éxito";
-        header("Location: prestamo.php");
+        // Cambiar el estado de disponibilidad del instrumento a "no disponible"
+        $update_sql = "UPDATE instrumentos SET disponibilidad = 'no disponible' WHERE id = '$instrumento_id'";
+        if ($conn->query($update_sql) === TRUE) {
+            echo "Nuevo préstamo agregado con éxito";
+            header("Location: prestamo.php");
+        } else {
+            echo "Error al actualizar la disponibilidad del instrumento: " . $conn->error;
+        }
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -89,8 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="instrumento_id">Instrumento:</label>
                 <select class="form-control" id="instrumento_id" name="instrumento_id" required>
                     <?php
-                    // Mostrar instrumentos disponibles
-                    $result = $conn->query("SELECT id, nombre FROM instrumentos");
+                    // Mostrar solo instrumentos en buen estado y disponibles
+                    $result = $conn->query("SELECT id, nombre FROM instrumentos WHERE estado = 'bueno' AND disponibilidad = 'disponible'");
                     while ($row = $result->fetch_assoc()) {
                         echo "<option value='{$row['id']}'>{$row['nombre']}</option>";
                     }

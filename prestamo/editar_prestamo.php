@@ -5,6 +5,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $result = $conn->query("SELECT * FROM prestamoinstrumentos WHERE id = $id");
     $prestamo = $result->fetch_assoc();
+    $instrumento_anterior = $prestamo['instrumento_id'];
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,11 +19,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipo_transaccion = $_POST['tipo_transaccion'];
     $estado_entrega = $_POST['estado_entrega'];
 
+    // Actualizar el préstamo en la tabla prestamoinstrumentos
     $sql = "UPDATE prestamoinstrumentos 
             SET nombre='$nombre', apellido='$apellido', DNI='$dni', instrumento_id='$instrumento_id', fecha_prestamo='$fecha_prestamo', fecha_devolucion='$fecha_devolucion', tipo_transaccion='$tipo_transaccion', estado_entrega='$estado_entrega' 
             WHERE id = '$id'";
 
     if ($conn->query($sql) === TRUE) {
+        // Verificar si se cambió el instrumento
+        if ($instrumento_id != $instrumento_anterior) {
+            // Marcar el nuevo instrumento como "no disponible"
+            $conn->query("UPDATE instrumentos SET disponibilidad = 'no disponible' WHERE id = '$instrumento_id'");
+
+            // Volver a hacer disponible el instrumento anterior si existía
+            if ($instrumento_anterior) {
+                $conn->query("UPDATE instrumentos SET disponibilidad = 'disponible' WHERE id = '$instrumento_anterior'");
+            }
+        }
+
+        // Si el tipo de transacción es "Devuelto", actualizar la disponibilidad del instrumento actual a "disponible"
+        if ($tipo_transaccion == 'Devuelto') {
+            $conn->query("UPDATE instrumentos SET disponibilidad = 'disponible' WHERE id = '$instrumento_id'");
+        }
+
         echo "Préstamo actualizado con éxito";
         header('Location: prestamo.php');
     } else {
@@ -114,22 +132,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="form-group">
-                <label for="tipo_transaccion">tipo de transaccion</label>
+                <label for="tipo_transaccion">Tipo de transacción</label>
                 <select class="form-control" id="tipo_transaccion" name="tipo_transaccion" required>
-                    <option selected>--Selecione--</option>
-                    <option value="Prestado">Prestado</option>
-                    <option value="Devuelto">Devuelto</option>
-                    <?php echo $prestamo['tipo_transaccion']; ?>"
+                    <option value="Prestado" <?php echo ($prestamo['tipo_transaccion'] == 'Prestado') ? 'selected' : ''; ?>>Prestado</option>
+                    <option value="Devuelto" <?php echo ($prestamo['tipo_transaccion'] == 'Devuelto') ? 'selected' : ''; ?>>Devuelto</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="estado_entrega">Estado de Entrega:</label>
                 <select class="form-control" id="estado_entrega" name="estado_entrega" required>
-                    <option selected>--Selecione--</option>
-                    <option value="Bueno">Bueno</option>
-                    <option value="Dañado">Dañado</option>
-                    <?php echo $prestamo['estado_entrega']; ?>"
+                    <option value="" disabled>--Seleccione--</option>
+                    <option value="Bueno" <?php echo ($prestamo['estado_entrega'] == 'Bueno') ? 'selected' : ''; ?>>Bueno</option>
+                    <option value="Dañado" <?php echo ($prestamo['estado_entrega'] == 'Dañado') ? 'selected' : ''; ?>>Dañado</option>
                 </select>
             </div>
 

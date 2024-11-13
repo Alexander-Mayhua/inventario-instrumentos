@@ -9,13 +9,14 @@ if (!isset($_SESSION['username'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-          body {
+        body {
             background-color: #f7f7f7;
             overflow-x: hidden;
         }
@@ -57,11 +58,11 @@ if (!isset($_SESSION['username'])) {
                 margin-left: 0;
                 width: 100%;
             }
-            
+
             .menu {
                 width: 100% !important;
             }
-            
+
             .texto {
                 font-size: 24px !important;
             }
@@ -111,8 +112,8 @@ if (!isset($_SESSION['username'])) {
         .contenido2 {
             margin-top: 0px;
             padding: 10px;
-           
-          
+
+
         }
 
         .table-responsive {
@@ -129,7 +130,7 @@ if (!isset($_SESSION['username'])) {
             .action-buttons {
                 flex-direction: column;
             }
-            
+
             .action-buttons .btn {
                 width: 100%;
                 margin-bottom: 5px;
@@ -149,17 +150,17 @@ if (!isset($_SESSION['username'])) {
                 display: block;
             }
         }
-        .tit{
+
+        .tit {
             padding-top: 100px;
         }
-    
     </style>
 </head>
 
 <body>
     <button id="sidebarToggle" class="btn btn-success">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
         </svg>
     </button>
 
@@ -196,13 +197,13 @@ if (!isset($_SESSION['username'])) {
         <div class="menu">
             <p class="texto">I.E. ESMERALDA DE LOS ANDES</p>
         </div>
-        
+
         <div class="contenido2">
             <div class="tit">
-            <h1 class="text-center mb-4">Historial de Préstamos</h1>
+                <h1 class="text-center mb-4">Historial de Préstamos</h1>
             </div>
-           
-            
+
+
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <thead class="table-success">
@@ -217,6 +218,7 @@ if (!isset($_SESSION['username'])) {
                             <th>Tipo de Transacción</th>
                             <th>Estado de Entrega</th>
                             <th>Fecha de Registro</th>
+                            <th>Accion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -238,6 +240,9 @@ if (!isset($_SESSION['username'])) {
                                 <td>{$row['tipo_transaccion']}</td>
                                 <td>{$row['estado_entrega']}</td>
                                 <td>{$row['fecha_registro']}</td>
+                                 <td>
+                                   <a href='restaurar.php?id={$row['id']}' class='btn btn-success'>Restaurar</a>
+                                 </td>
                             </tr>";
                         }
                         ?>
@@ -254,4 +259,5 @@ if (!isset($_SESSION['username'])) {
         });
     </script>
 </body>
+
 </html>

@@ -4,10 +4,18 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
-include '../conexion/conexion.php'; ?>
+include '../conexion/conexion.php';
+
+$nombre_busqueda = ""; // Inicializa la variable
+
+if (isset($_GET['nombre_busqueda'])) {
+    $nombre_busqueda = $_GET['nombre_busqueda'];
+}
+?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,15 +64,16 @@ include '../conexion/conexion.php'; ?>
                 margin-left: 0;
                 width: 100%;
             }
-            
+
             .menu {
                 width: 100% !important;
             }
-            
+
             .texto {
                 font-size: 24px !important;
             }
         }
+
         .sidebar a {
             color: #ffffff;
             font-weight: 700;
@@ -108,7 +117,8 @@ include '../conexion/conexion.php'; ?>
 
         .contenido2 {
             padding: 10px;
-            margin-top: 0px; /* Ajustado para evitar solapamiento con el menú */
+            margin-top: 0px;
+            /* Ajustado para evitar solapamiento con el menú */
         }
 
         .table-responsive {
@@ -125,7 +135,7 @@ include '../conexion/conexion.php'; ?>
             .action-buttons {
                 flex-direction: column;
             }
-            
+
             .action-buttons .btn {
                 width: 100%;
                 margin-bottom: 5px;
@@ -139,6 +149,7 @@ include '../conexion/conexion.php'; ?>
             left: 10px;
             z-index: 1001;
         }
+
         @media (max-width: 768px) {
             #sidebarToggle {
                 display: block;
@@ -150,12 +161,12 @@ include '../conexion/conexion.php'; ?>
 <body>
     <button id="sidebarToggle" class="btn btn-success">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
         </svg>
     </button>
 
-       <!-- Sidebar -->
-       <div class="sidebar p-3">
+    <!-- Sidebar -->
+    <div class="sidebar p-3">
         <div class="text-center mb-4">
             <img src="../img/insignia1.png" class="img mb-3" alt="" style="max-width: 150px">
             <h5>I.E ESMERALDA</h5>
@@ -193,14 +204,22 @@ include '../conexion/conexion.php'; ?>
             <div class="mb-4">
                 <a href="../index.php" class="btn btn-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
                     </svg>
                 </a>
             </div>
 
             <h1 class="text-center mb-4">Préstamos de Instrumentos</h1>
             <a href="./agregar_prestamo.php" class="btn btn-success m-3">Agregar Préstamo</a>
+           
+            <!-- Formulario de búsqueda -->
+            <form method="GET" action="" class="mb-3">
+                <div class="input-group">
+                    <input type="text" name="nombre_busqueda" class="form-control" placeholder="Buscar por nombre" value="<?php echo htmlspecialchars($nombre_busqueda); ?>">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
 
+            </form>
             <div class="text-right mb-3">
                 <a href="../fpdf/PruebaH.php" target="_blank" class="btn btn-primary">
                     <i class="fas fa-file-pdf"></i> Generar Reporte
@@ -224,11 +243,18 @@ include '../conexion/conexion.php'; ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        // Consulta que une las tablas prestamoinstrumentos e instrumentos
-                        $sql = "SELECT prestamoinstrumentos.*, instrumentos.nombre AS nombre_instrumento  
-                            FROM prestamoinstrumentos 
-                            JOIN instrumentos ON prestamoinstrumentos.instrumento_id = instrumentos.id";
+                    <?php
+                        // Consulta SQL con filtro de búsqueda
+                        $sql = "SELECT prestamoinstrumentos.*, instrumentos.nombre AS nombre_instrumento 
+                                FROM prestamoinstrumentos 
+                                JOIN instrumentos ON prestamoinstrumentos.instrumento_id = instrumentos.id
+                                WHERE instrumentos.estado = 'bueno'";
+
+                        // Agrega la condición de búsqueda si se ha ingresado un nombre
+                        if (!empty($nombre_busqueda)) {
+                            $sql .= " AND prestamoinstrumentos.nombre LIKE '%" . $conn->real_escape_string($nombre_busqueda) . "%'";
+                        }
+
                         $result = $conn->query($sql);
 
                         while ($row = $result->fetch_assoc()) {
@@ -243,10 +269,8 @@ include '../conexion/conexion.php'; ?>
                             <td>{$row['tipo_transaccion']}</td>
                             <td>{$row['estado_entrega']}</td>
                             <td>
-                                <div class='action-buttons'>
-                                    <a href='editar_prestamo.php?id={$row['id']}' class='btn btn-warning btn-sm'>Editar</a>
-                                    <a href='eliminar_prestamo.php?id={$row['id']}' class='btn btn-danger btn-sm' onclick=\"return confirm('¿Estás seguro de que deseas eliminar este préstamo?');\">Eliminar</a>
-                                </div>
+                                <a href='editar_prestamo.php?id={$row['id']}' class='btn btn-warning'>Editar</a>
+                                <a href='eliminar_prestamo.php?id={$row['id']}' class='btn btn-danger'>Eliminar</a>
                             </td>
                         </tr>";
                         }
@@ -265,4 +289,5 @@ include '../conexion/conexion.php'; ?>
         });
     </script>
 </body>
+
 </html>

@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
     $result = $conn->query("SELECT * FROM prestamoinstrumentos WHERE id = $id");
     $prestamo = $result->fetch_assoc();
 
-    // Insertar el préstamo en el historial
+    // Insertar el préstamo en el historial sin el campo de disponibilidad
     $sql_historial = "INSERT INTO historial_prestamos (instrumento_id, nombre, apellido, dni, fecha_prestamo, fecha_devolucion, tipo_transaccion, estado_entrega) VALUES (
         '{$prestamo['instrumento_id']}',
         '{$prestamo['nombre']}',
@@ -21,7 +21,10 @@ if (isset($_GET['id'])) {
     )";
 
     if ($conn->query($sql_historial) === TRUE) {
-        // Ahora que el préstamo ha sido transferido al historial, lo eliminamos de la tabla original
+        // Ahora que el préstamo ha sido transferido al historial, actualizamos el instrumento a "disponible"
+        $conn->query("UPDATE instrumentos SET disponibilidad = 'disponible' WHERE id = '{$prestamo['instrumento_id']}'");
+
+        // Eliminamos el préstamo de la tabla original
         $sql_delete = "DELETE FROM prestamoinstrumentos WHERE id = $id";
 
         if ($conn->query($sql_delete) === TRUE) {

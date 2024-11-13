@@ -55,9 +55,9 @@ class PDF extends FPDF
       $this->SetTextColor(0, 0, 0); //colorTexto
       $this->SetDrawColor(163, 163, 163); //colorBorde
       $this->SetFont('Arial', 'B', 11);
-      $this->Cell(15, 10, utf8_decode('ID'), 1, 0, 'C', 1);
-      $this->Cell(30, 10, utf8_decode('CODIGO'), 1, 0, 'C', 1);
-      $this->Cell(30, 10, utf8_decode('NOMBRE'), 1, 0, 'C', 1);
+      $this->Cell(15, 10, utf8_decode('N°'), 1, 0, 'C', 1);
+      $this->Cell(20, 10, utf8_decode('CODIGO'), 1, 0, 'C', 1);
+      $this->Cell(50, 10, utf8_decode('NOMBRE'), 1, 0, 'C', 1);
       $this->Cell(30, 10, utf8_decode('MARCA'), 1, 0, 'C', 1);
       $this->Cell(30, 10, utf8_decode('MODELO'), 1, 0, 'C', 1);
       $this->Cell(30, 10, utf8_decode('COLOR'), 1, 0, 'C', 1);
@@ -92,14 +92,14 @@ $i = 0;
 $pdf->SetFont('Arial', '', 12);
 $pdf->SetDrawColor(163, 163, 163); //colorBorde
 
-$consulta_reporte = $conn->query("SELECT instrumentos.codigo, instrumentos.nombre,instrumentos.marca, instrumentos.modelo, instrumentos.color, instrumentos.fecha_donacion ,instrumentos.estado, instrumentos.precio  FROM `instrumentos` ");
+$consulta_reporte = $conn->query("SELECT instrumentos.codigo, instrumentos.nombre,instrumentos.marca, instrumentos.modelo, instrumentos.color, instrumentos.fecha_donacion ,instrumentos.estado, instrumentos.precio  FROM instrumentos ");
 
 while ($datos_reporte = $consulta_reporte->fetch_object()) {
    $i = $i + 1;
    /* TABLA */
    $pdf->Cell(15, 10, utf8_decode($i), 1, 0, 'C', 0);
-   $pdf->Cell(30, 10, utf8_decode($datos_reporte->codigo), 1, 0, 'C', 0);
-   $pdf->Cell(30, 10, utf8_decode($datos_reporte->nombre), 1, 0, 'C', 0);
+   $pdf->Cell(20, 10, utf8_decode($datos_reporte->codigo), 1, 0, 'C', 0);
+   $pdf->Cell(50, 10, utf8_decode($datos_reporte->nombre), 1, 0, 'C', 0);
    $pdf->Cell(30, 10, utf8_decode($datos_reporte->marca), 1, 0, 'C', 0);
    $pdf->Cell(30, 10, utf8_decode($datos_reporte->	modelo), 1, 0, 'C', 0);
    $pdf->Cell(30, 10, utf8_decode($datos_reporte->	color), 1, 0, 'C', 0);

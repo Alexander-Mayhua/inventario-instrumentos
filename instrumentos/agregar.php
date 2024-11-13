@@ -15,11 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $color = $_POST['color'];
     $fecha_donacion = $_POST['fecha_donacion'];
     $estado = $_POST['estado'];
-    $precio = $_POST['precio'];
+    $precio= $_POST['precio'];
+    $disponibilidad= $_POST['disponibilidad'];
+   
 
-
-    $sql = "INSERT INTO instrumentos (codigo,nombre,marca,modelo,Color,fecha_donacion,estado,precio) VALUES ('$codigo','$nombre','$marca','$modelo','$color','$fecha_donacion','$estado','$precio')";
-
+    $sql = "INSERT INTO instrumentos (codigo,nombre,marca,modelo,Color,fecha_donacion,estado,precio,disponibilidad) VALUES ('$codigo','$nombre','$marca','$modelo','$color','$fecha_donacion','$estado','$precio','$disponibilidad')";
+    
     if ($conn->query($sql) === TRUE) {
         echo "Nuevo instrumento agregado con éxito";
         header("Location: instrumento.php");
@@ -146,16 +147,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="date" id="fecha_donacion" name="fecha_donacion" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="estado">Estado:</label>
-                <select class="form-control" id="estado" name="estado" required>
+                    <label for="estado">Estado:</label>
+                    <select class="form-control" id="estado" name="estado" required>
+                    <option selected>--Selecione--</option>
                     <option value="Bueno">Bueno</option>
                     <option value="Dañado">Dañado</option>
                 </select>
-            </div>
+                </div>
             <div class="form-group">
                 <label for="precio">Precio:</label>
                 <input type="number" id="precio" name="precio" class="form-control" required>
             </div>
+
+            <div class="form-group">
+                    <label for="disponibilidad">Disponibilidad:</label>
+                    <select class="form-control" id="disponibilidad" name="disponibilidad" required>
+                    <option selected>--Selecione--</option>
+                    <option value="disponible">disponible</option>
+                    <option value="no disponible">no disponible</option>
+                </select>
+                </div>
 
             <button type="submit" class="btn btn-success">Agregar Instrumentos</button>
             <a href="instrumento.php" class="btn btn-danger">Cancelar</a>

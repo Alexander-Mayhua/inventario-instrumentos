@@ -17,10 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha_donacion = $_POST['fecha_donacion'];
     $estado = $_POST['estado'];
     $precio = $_POST['precio'];
+    $disponibilidad = $_POST['disponibilidad'];
 
 
-
-    $sql = "UPDATE instrumentos SET codigo='$codigo', nombre='$nombre', marca='$marca', modelo='$modelo',color='$color', fecha_donacion='$fecha_donacion', estado='$estado', precio='$precio'where id = '$id'";
+    $sql = "UPDATE instrumentos SET codigo='$codigo', nombre='$nombre', marca='$marca', modelo='$modelo',color='$color', fecha_donacion='$fecha_donacion', estado='$estado', precio='$precio', disponibilidad='$disponibilidad' where id = '$id'";
     if ($conn->query($sql) === TRUE) {
         echo "instrumento actualizado con éxito";
         header('Location: instrumento.php');
@@ -149,14 +149,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <label for="estado">Estado:</label>
             <select id="estado" name="estado" required>
-                <option value="Bueno">Bueno</option>
-                <option value="Dañado">Dañado</option>
-                <?php echo $instrumentos['estado']; ?>"
+                <option value="" disabled>--Seleccione--</option>
+                <option value="Bueno" <?php echo ($instrumentos['estado'] == 'Bueno') ? 'selected' : ''; ?>>Bueno</option>
+                <option value="Dañado" <?php echo ($instrumentos['estado'] == 'Dañado') ? 'selected' : ''; ?>>Dañado</option>
             </select>
 
 
             <label for="precio">Precio:</label>
             <input type="number" id="precio" name="precio" value="<?php echo $instrumentos['precio']; ?>">
+
+            <label for="disponibilidad">Disponibilidad:</label>
+            <select id="disponibilidad" name="disponibilidad" required>
+                <option value="" disabled>--Seleccione--</option>
+                <option value="disponible" <?php echo ($instrumentos['disponibilidad'] == 'disponible') ? 'selected' : ''; ?>>Disponible</option>
+                <option value="no disponible" <?php echo ($instrumentos['disponibilidad'] == 'no disponible') ? 'selected' : ''; ?>>No Disponible</option>
+            </select>
 
             <div class="button-container">
                 <button type="submit">Actualizar Instrumento</button>
