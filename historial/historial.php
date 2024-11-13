@@ -110,7 +110,9 @@ if (!isset($_SESSION['username'])) {
 
         .contenido2 {
             margin-top: 0px;
-            padding: 20px;
+            padding: 10px;
+           
+          
         }
 
         .table-responsive {
@@ -147,6 +149,10 @@ if (!isset($_SESSION['username'])) {
                 display: block;
             }
         }
+        .tit{
+            padding-top: 100px;
+        }
+    
     </style>
 </head>
 
@@ -192,7 +198,10 @@ if (!isset($_SESSION['username'])) {
         </div>
         
         <div class="contenido2">
+            <div class="tit">
             <h1 class="text-center mb-4">Historial de Préstamos</h1>
+            </div>
+           
             
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">

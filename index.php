@@ -74,7 +74,9 @@ $conexion->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
         body {
             background-color: #f7f7f7;
             overflow-x: hidden;
@@ -83,22 +85,32 @@ $conexion->close();
         .sidebar {
             background: #343a40;
             color: rgb(63, 252, 56);
-            background-image: url(img/fondo.jpg);
+            background-image: url(./img/fondo.jpg);
             background-blend-mode: soft-light;
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: center center;
             background-size: cover;
             background-color: rgb(50, 50, 50);
-            min-height: 100vh;
-            transition: 0.3s;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
         }
-
+        
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            transition: all 0.3s;
+        }
         .sidebar a {
             color: #ffffff;
             font-weight: 700;
-            text-decoration: none;
             padding: 10px;
             display: block;
+            text-decoration: none;
             transition: 0.3s;
         }
 
@@ -106,6 +118,19 @@ $conexion->close();
             background: #ffffff;
             color: rgb(1, 2, 2);
             border-radius: 5px;
+        }
+        
+        .texto {
+            color: greenyellow;
+            font-size: 40px;
+            margin: 0;
+            text-align: center;
+        }
+        .img {
+            border-radius: 50%;
+            background-color: black;
+            max-width: 100%;
+            height: auto;
         }
 
         .img-profile {
@@ -198,16 +223,16 @@ $conexion->close();
 <body>
     <div class="row g-0">
         <!-- Sidebar -->
-        <div class="col-lg-2 col-md-3 sidebar">
-            <div class="text-center py-4">
-                <img src="./img/insignia1.png" class="img-profile" alt="Logo">
-                <h5>I.E ESMERALDA</h5>
-            </div>
+        <div class="col-lg-2 col-md-3 sidebar p-3">
+        <div class="text-center mb-4">
+            <img src="./img/insignia1.png" class="img mb-3" alt="" style="max-width: 150px">
+            <h5>I.E ESMERALDA</h5>
+        </div>
             <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="./instrumentos/instrumento.php">Instrumentos</a></li>
-                <li class="nav-item"><a class="nav-link" href="./prestamo/prestamo.php">Prestamos</a></li>
-                <li class="nav-item"><a class="nav-link" href="./historial/historial.php">Historial</a></li>
+                <li class="nav-item"><a class="nav-link mb-3" href="">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link mb-3" href="./instrumentos/instrumento.php">Instrumentos</a></li>
+                <li class="nav-item"><a class="nav-link mb-3" href="./prestamo/prestamo.php">Prestamos</a></li>
+                <li class="nav-item"><a class="nav-link mb-3" href="./historial/historial.php">Historial</a></li>
                 <li class="nav-item">
                     <strong><p class="px-3 text-white">Usuario: <?php echo $_SESSION['username']; ?></p></strong>
                     <a href="logout.php" class="nav-link">Cerrar Sesión</a>
@@ -216,7 +241,7 @@ $conexion->close();
         </div>
 
         <!-- Content -->
-        <div class="col-lg-10 col-md-9">
+        <div class=" main-content col-lg-10 col-md-9">
             <!-- Header -->
             <div class="header text-center mb-4">
                 <h1>SISTEMA DE INVENTARIO</h1>

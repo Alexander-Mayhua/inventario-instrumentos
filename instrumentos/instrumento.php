@@ -111,7 +111,7 @@ if (!isset($_SESSION['username'])) {
 
         .contenido2 {
             margin-top: 0px;
-            padding: 20px;
+            padding: 10px;
         }
 
         .table-responsive {
