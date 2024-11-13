@@ -135,6 +135,12 @@ $conexion->close();
             height: auto;
             margin: 20px auto;
         }
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            transition: all 0.3s;
+        }
+
 
         .header {
             background-image: url(./img/fondo.jpg);
