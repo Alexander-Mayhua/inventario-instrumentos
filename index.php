@@ -5,7 +5,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-include '../conexion/conexion.php';
+
 
 ?>
 
