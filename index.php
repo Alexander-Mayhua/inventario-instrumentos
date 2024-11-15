@@ -221,6 +221,19 @@ $conexion->close();
             .panel {
                 min-width: 100%;
             }
+            
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .menu {
+                width: 100% !important;
+            }
+            
+            .texto {
+                font-size: 24px !important;
+            }
         }
     </style>
 </head>
